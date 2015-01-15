@@ -1,0 +1,31 @@
+# Object files
+*.o
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CCS Thingies
+.metadata
+.settings
+.launches
+Release
+Debug
+dvt
+RemoteSystemsTempFiles
+
+# Project thingies
+wlan_station
+file_download
+httpserver
