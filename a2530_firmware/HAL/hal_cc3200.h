@@ -9,9 +9,10 @@
 #include "hw_memmap.h"
 #include "hw_common_reg.h"
 #include "interrupt.h"
-#include "spi.h"
+#include "prcm.h"
 #include "rom.h"
 #include "rom_map.h"
+#include "spi.h"
 
 void halSpiInitModule();
 

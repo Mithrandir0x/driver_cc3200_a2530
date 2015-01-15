@@ -35,10 +35,4 @@
 * DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
 */
 
-#ifdef ZM_PHY_SPI
 #include "../ZM/zm_phy_spi.h"
-#elif defined ZM_PHY_UART
-#include "../ZM/zm_phy_uart.h"	 
-#else
-#error "You must define a physical interface for the module library: ZM_PHY_SPI or ZM_PHY_UART. In IAR this is done in Project Options : C/C++ Compiler : Preprocessor : Defined Symbols. In CCS this is done in Project Properties : Compiler : Advanced Options : Predefined Symbols."
-#endif

@@ -1,6 +1,8 @@
 
 #include "hal_cc3200.h"
 
+#define SPI_IF_BIT_RATE  100000
+
 void halSpiInitModule()
 {
 	// Reset SPI
