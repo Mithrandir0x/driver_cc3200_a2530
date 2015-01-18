@@ -63,10 +63,11 @@ void printBinary(uint8_t n)
     unsigned int i;
     i = 1<<(sizeof(n) * 8 - 1);
     while (i > 0) {
-        if (n & i)
+        if (n & i) {
             printf("1");
-        else
+        } else {
             printf("0");
+        }
         i >>= 1;
     }
 }

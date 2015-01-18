@@ -263,7 +263,7 @@ static moduleResult_t setModuleRfPower(uint8_t productId)
 #elif defined REGION_EUROPE
     printf("EU (E U R O P E)");        //0xX0, 0xX1, 0xX2, 0xX3, 0xX4
     const uint8_t rfPowerLevelTable[]   =     {0xF5, 0xF5, 0xE5, 0x95, 0x95};       //Europe
-    const uint8_t rfPowerLevelsEurope[] =     {3, 3, 10,  14,  14};       
+    //const uint8_t rfPowerLevelsEurope[] =     {3, 3, 10,  14,  14};
 #else
 #error "Region must be defined"
 #endif

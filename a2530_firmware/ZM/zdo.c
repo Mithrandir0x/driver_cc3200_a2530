@@ -246,10 +246,11 @@ void displayZdoAddressResponse(uint8_t* rsp)
 void displayZdoEndDeviceAnnounce(uint8_t* announce)
 {    
     if (announce[ZDO_END_DEVICE_ANNCE_IND_CAPABILITIES_FIELD] & 
-        ZDO_END_DEVICE_ANNCE_IND_CAPABILITIES_FLAG_DEVICETYPE_ROUTER)
+        ZDO_END_DEVICE_ANNCE_IND_CAPABILITIES_FLAG_DEVICETYPE_ROUTER) {
         printf("ROUTER ");
-    else
+    } else {
         printf("END DEVICE ");
+    }
     printf("Announce From:%04X Addr:%04X MAC:", GET_ZDO_END_DEVICE_ANNCE_IND_FROM_ADDRESS(), GET_ZDO_END_DEVICE_ANNCE_IND_SRC_ADDRESS());
     int i;
     for (i=11; i>3; i--)

@@ -200,7 +200,7 @@ static moduleResult_t setModuleRfPower(uint8_t productId, uint16_t moduleConfigu
     const uint8_t* rfPowerLevelTable;  
     
     // The name of the operating region
-    char* regionName;                   
+    char* regionName;
 
     // Now, set which RF Power Level Table to use and region name based on moduleConfiguration setting
     if (moduleConfiguration & 0x01) // Only use Least significant bit; ignore others
