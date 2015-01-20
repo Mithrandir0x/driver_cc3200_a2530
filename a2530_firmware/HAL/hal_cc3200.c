@@ -6,7 +6,7 @@
 
 void delayMs(uint16_t delay)
 {
-	UtilsDelay(26667 * (unsigned long) delay); // Wait for a millisecond
+	MAP_UtilsDelay(26667 * (unsigned long) delay); // Wait for a millisecond
 }
 
 void halSpiInitModule()
@@ -28,7 +28,7 @@ void halSpiInitModule()
 			SPI_IF_BIT_RATE,
 			SPI_MODE_MASTER,
 			SPI_SUB_MODE_0,
-			( SPI_SW_CTRL_CS |   // Chip-Select Control Mode (Software or Hardware)
+			( SPI_HW_CTRL_CS |   // Chip-Select Control Mode (Software or Hardware)
 				SPI_4PIN_MODE |
 				SPI_TURBO_OFF |
 				SPI_CS_ACTIVEHIGH |

@@ -47,7 +47,7 @@
 									<listOptionValue builtIn="false" value="REGION_EUROPE"/>
 									<listOptionValue builtIn="false" value="FAST_PROCESSOR"/>
 									<listOptionValue builtIn="false" value="ZM_PHY_SPI"/>
-									<listOptionValue builtIn="false" value="DISABLED_PRINTF"/>
+									<listOptionValue builtIn="false" value="DEBUG_UART_PRINTF"/>
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.TMS470_5.1.compilerID.GCC.1296694180" name="Enable support for GCC extensions (--gcc)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_5.1.compilerID.GCC" value="true" valueType="boolean"/>
 								<inputType id="com.ti.ccstudio.buildDefinitions.TMS470_5.1.compiler.inputType__C_SRCS.1897023552" name="C Sources" superClass="com.ti.ccstudio.buildDefinitions.TMS470_5.1.compiler.inputType__C_SRCS"/>

@@ -19,6 +19,9 @@
 
 #ifdef DISABLED_PRINTF
 #define printf(fmt, args...) {}
+#elif defined DEBUG_UART_PRINTF
+#include "../Common/uart_if.h"
+#define printf Report
 #endif
 
 #define MAP_SysCtlClockGet          80000000
@@ -30,14 +33,14 @@
 #define PIN_SPI_MISO PIN_06
 #define PIN_SPI_MOSI PIN_07
 
-#define RADIO_ON()  GPIOPinWrite(GPIOA3_BASE, PIN_45, 1)
-#define RADIO_OFF() GPIOPinWrite(GPIOA3_BASE, PIN_45, 0)
+#define RADIO_ON()  MAP_GPIOPinWrite(GPIOA3_BASE, PIN_45, 1)
+#define RADIO_OFF() MAP_GPIOPinWrite(GPIOA3_BASE, PIN_45, 0)
 
 //  Zigbee Module SPI
-#define SPI_SS_SET()   GPIOPinWrite(GSPI_BASE, PIN_SPI_CS, 0)
-#define SPI_SS_CLEAR() GPIOPinWrite(GSPI_BASE, PIN_SPI_CS, 1)
-#define SRDY_IS_HIGH() ( GPIOPinRead(GPIOA1_BASE, PIN_02) >> ( PIN_02 % 8 ) == 1 )
-#define SRDY_IS_LOW()  ( GPIOPinRead(GPIOA1_BASE, PIN_02) >> ( PIN_02 % 8 ) == 0 )
+#define SPI_SS_SET()   MAP_GPIOPinWrite(GSPI_BASE, PIN_SPI_CS, 0)
+#define SPI_SS_CLEAR() MAP_GPIOPinWrite(GSPI_BASE, PIN_SPI_CS, 1)
+#define SRDY_IS_HIGH() ( MAP_GPIOPinRead(GPIOA1_BASE, PIN_02) >> ( PIN_02 % 8 ) == 1 )
+#define SRDY_IS_LOW()  ( MAP_GPIOPinRead(GPIOA1_BASE, PIN_02) >> ( PIN_02 % 8 ) == 0 )
 
 // HAL SPI integration
 void halSpiInitModule();
