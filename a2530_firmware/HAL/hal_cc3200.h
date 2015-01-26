@@ -20,7 +20,7 @@
 #ifdef DISABLED_PRINTF
 #define printf(fmt, args...) {}
 #elif defined DEBUG_UART_PRINTF
-#include "../Common/uart_if.h"
+extern int Report(const char *, ...);
 #define printf Report
 #endif
 

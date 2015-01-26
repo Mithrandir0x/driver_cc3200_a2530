@@ -108,7 +108,7 @@ moduleResult_t sendSreq()
   
   /* Now: Data was sent, so we wait for Synchronous Response (SRSP) to be received.
   This will be indicated by SRDY transitioning to high */
-  
+
   while (SRDY_IS_LOW() && (timeLeft2 != 0))    //wait for data
     timeLeft2--;
   if (timeLeft2 == 0)
