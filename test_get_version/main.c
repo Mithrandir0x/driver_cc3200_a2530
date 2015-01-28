@@ -95,12 +95,20 @@ int main()
     Message("Initializing module...\n\r");
     moduleInit();
 
-    Message("Resetting module..\n\r");
-	moduleReset();
+    Message("Resetting module...\n\r");
+    result = moduleReset();
+
+    if (result == MODULE_SUCCESS)
+	{
+		/* Display the contents of the received SYS_RESET_IND message */
+		displaySysResetInd();
+	} else {
+		Report("ERROR 0x%02X\r\n", result);
+	}
 
 	Message("Fetching system version..\n\r");
-	while (1)
-	{
+//	while (1)
+//	{
 		result = sysVersion();
 		if (result == MODULE_SUCCESS)                  //gets the version string
 		{
@@ -109,5 +117,7 @@ int main()
 			Report("ERROR 0x%02X\n\r", result);
 		}
 		delayMs(1000);
-	}
+//	}
+    Message("Done\n\r");
+    while (1);
 }

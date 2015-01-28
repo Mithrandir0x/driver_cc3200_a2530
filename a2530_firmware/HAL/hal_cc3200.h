@@ -33,14 +33,14 @@ extern int Report(const char *, ...);
 #define PIN_SPI_MISO PIN_06
 #define PIN_SPI_MOSI PIN_07
 
-#define RADIO_ON()  MAP_GPIOPinWrite(GPIOA3_BASE, PIN_45, 1)
-#define RADIO_OFF() MAP_GPIOPinWrite(GPIOA3_BASE, PIN_45, 0)
+#define RADIO_ON()  MAP_GPIOPinWrite(GPIOA3_BASE, 0x80, 0x80)
+#define RADIO_OFF() MAP_GPIOPinWrite(GPIOA3_BASE, 0x80, 0x00)
 
 //  Zigbee Module SPI
-#define SPI_SS_SET()   MAP_GPIOPinWrite(GSPI_BASE, PIN_SPI_CS, 0)
-#define SPI_SS_CLEAR() MAP_GPIOPinWrite(GSPI_BASE, PIN_SPI_CS, 1)
-#define SRDY_IS_HIGH() ( MAP_GPIOPinRead(GPIOA1_BASE, PIN_02) >> ( PIN_02 % 8 ) == 1 )
-#define SRDY_IS_LOW()  ( MAP_GPIOPinRead(GPIOA1_BASE, PIN_02) >> ( PIN_02 % 8 ) == 0 )
+#define SPI_SS_SET()   MAP_SPICSDisable(GSPI_BASE)
+#define SPI_SS_CLEAR() MAP_SPICSEnable(GSPI_BASE)
+#define SRDY_IS_HIGH() ( MAP_GPIOPinRead(GPIOA1_BASE, 0x08) == 0x08 )
+#define SRDY_IS_LOW()  ( MAP_GPIOPinRead(GPIOA1_BASE, 0x08) == 0x00 )
 
 // HAL SPI integration
 void halSpiInitModule();

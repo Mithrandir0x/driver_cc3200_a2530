@@ -69,12 +69,27 @@ restart the Module's internal state machine and apply changes to startup options
 */
 moduleResult_t moduleReset()
 {
+
+#ifdef ZM_PHY_SPI_VERBOSE
+  printf("SRDY [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA1_BASE, 0x08));
+  printf("MRST [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA3_BASE, 0x80));
+#endif
+
     RADIO_OFF();
+#ifdef ZM_PHY_SPI_VERBOSE
+  printf("SRDY [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA1_BASE, 0x08));
+  printf("MRST [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA3_BASE, 0x80));
+#endif
     delayMs(1);
     RADIO_ON(); 
 #define MODULE_RESET_INITIAL_DELAY_MS   400
     delayMs(MODULE_RESET_INITIAL_DELAY_MS);                        //Necessary to allow proper module startup
-    
+
+#ifdef ZM_PHY_SPI_VERBOSE
+  printf("SRDY [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA1_BASE, 0x08));
+  printf("MRST [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA3_BASE, 0x80));
+#endif
+
 #ifdef ZM_PHY_SPI
 
 #define TEST_SRDY_INTERVAL_MS           10        // check SRDY every 10 mSec
@@ -88,9 +103,19 @@ moduleResult_t moduleReset()
     }
     while ((elapsedTime < TEST_SRDY_TIMEOUT_MS) && (!(MODULE_HAS_MESSAGE_WAITING())));
 
+#ifdef ZM_PHY_SPI_VERBOSE
+  printf("SRDY [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA1_BASE, 0x08));
+  printf("MRST [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA3_BASE, 0x80));
+#endif
+
     RETURN_RESULT_IF_EXPRESSION_TRUE(((SRDY_IS_HIGH()) || (elapsedTime < TEST_SRDY_MINIMUM_TIMEOUT_MS)), METHOD_MODULE_RESET, TIMEOUT);
 #ifdef MODULE_INTERFACE_VERBOSE
     printf("Module ready in %umS\r\n", elapsedTime + MODULE_RESET_INITIAL_DELAY_MS);
+#endif
+
+#ifdef ZM_PHY_SPI_VERBOSE
+  printf("SRDY [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA1_BASE, 0x08));
+  printf("MRST [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA3_BASE, 0x80));
 #endif
     return (getMessage());
 
@@ -114,7 +139,7 @@ void displaySysResetInd()
         printf("%s (%u), TransportRev=%u, ProductId=0x%02X, FW Rev=%u.%u.%u\r\n",
                getResetReason(v[0]), v[0], v[1], v[2], v[3], v[4], v[5]);
     } else {
-        printf("Error - not a SYS_RESET_IND. Expected type 0x%04X; Received type 0x%04X; Contents:\r\n", SYS_RESET_IND, MODULE_COMMAND());
+        printf("Error - not a SYS_RESET_IND.\n\r  Expected type 0x%04X; Received type 0x%04X;\n\r  Contents:\r\n    ", SYS_RESET_IND, MODULE_COMMAND());
         displayZmBuf(); 
     }
 }

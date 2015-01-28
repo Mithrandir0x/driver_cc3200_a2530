@@ -95,16 +95,29 @@ moduleResult_t sendSreq()
   uint32_t timeLeft1 = CHIP_SELECT_TO_SRDY_LOW_TIMEOUT;
   uint32_t timeLeft2 = WAIT_FOR_SRSP_TIMEOUT;
   
+//#ifdef ZM_PHY_SPI_VERBOSE
+//  printf("SRDY [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA1_BASE, 0x08));
+//#endif
+
   SPI_SS_SET();                               // Assert SS
   while (SRDY_IS_HIGH() && (timeLeft1 != 0))  //wait until SRDY goes low
     timeLeft1--;
   if (timeLeft1 == 0)                         //SRDY did not go low in time, so return an error
     return ZM_PHY_CHIP_SELECT_TIMEOUT;
   timeFromChipSelectToSrdyLow = (CHIP_SELECT_TO_SRDY_LOW_TIMEOUT - timeLeft1);
-  
+
+//#ifdef ZM_PHY_SPI_VERBOSE
+//  printf("SRDY [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA1_BASE, 0x08));
+//#endif
+
   spiWrite(zmBuf, (*zmBuf + 3));              // *bytes (first byte) is length after the first 3 bytes, all frames have at least the first 3 bytes
   *zmBuf = 0; *(zmBuf+1) = 0; *(zmBuf+2) = 0; //poll message is 0,0,0
   //NOTE: MRDY must remain asserted here, but can de-assert SS if the two signals are separate
+
+//#ifdef ZM_PHY_SPI_VERBOSE
+//  printf("XXSRDY [0x%08X]\n\r", MAP_GPIOPinRead(GPIOA1_BASE, 0x08));
+//  printf("(SRDY_IS_LOW() && (timeLeft2 != 0)) [%d]\n\r", (SRDY_IS_LOW() && (timeLeft2 != 0)));
+//#endif
   
   /* Now: Data was sent, so we wait for Synchronous Response (SRSP) to be received.
   This will be indicated by SRDY transitioning to high */
@@ -118,7 +131,12 @@ moduleResult_t sendSreq()
   //NOTE: if SS & MRDY are separate signals then can re-assert SS here.
   spiWrite(zmBuf, 3);
   if (*zmBuf > 0)                             // *bytes (first byte) contains number of bytes to receive
-    spiWrite(zmBuf+3, *zmBuf);              //write-to-read: read data into buffer
+    spiWrite(zmBuf+3, *zmBuf);                //write-to-read: read data into buffer
+#ifdef ZM_PHY_SPI_VERBOSE
+  else {
+	  printf("No bytes expected\n\r");
+  }
+#endif
   SPI_SS_CLEAR();
   return 0;
 #else                                           // In a slow processor there's not enough time to set up the timeout so there will be errors
@@ -150,7 +168,11 @@ has arrived. This will be initiated by detecting SRDY going low.
 //moduleResult_t spiPoll()
 moduleResult_t getMessage()
 {
-  *zmBuf = 0; *(zmBuf+1) = 0; *(zmBuf+2) = 0;  //poll message is 0,0,0 
+  *zmBuf = 0; *(zmBuf+1) = 0; *(zmBuf+2) = 0;  //poll message is 0,0,0
+#ifdef ZM_PHY_SPI_VERBOSE
+  printf("Tx: ");
+  printHexBytes(zmBuf, zmBuf[0] + 3);
+#endif
   return(sendSreq());
 }
 
