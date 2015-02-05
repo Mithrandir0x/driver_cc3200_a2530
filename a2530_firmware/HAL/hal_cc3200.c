@@ -6,7 +6,7 @@
 #endif
 
 // This defines the SPI clock rate to 4MHz.
-#define SPI_IF_BIT_RATE  4000000
+#define SPI_IF_BIT_RATE  1000000
 
 void delayMs(uint16_t delay)
 {

@@ -117,7 +117,7 @@ int main()
         if (result == MODULE_SUCCESS)
         {
             uint8_t* mac = zmBuf+SRSP_DIP_VALUE_FIELD;
-            printf("MAC (as sent, LSB first):");
+            Report("MAC (as sent, LSB first):");
             printHexBytes(mac, 8);
 
             /* Note: the MAC address comes over the wire in reverse order (LSB first)
@@ -128,13 +128,13 @@ int main()
             {
                 temp[i] = mac[7-i];
             }
-            printf("MAC (correct, MSB first):");
+            Report("MAC (correct, MSB first):");
             printHexBytes(temp, 8);
             printf("\r\n");
         }
         else
         {
-            printf("ERROR 0x%02X\r\n", result);
+        	Report("ERROR 0x%02X\r\n", result);
         }
 //      delayMs(1000);
 //  }
